@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Computer-Use Capability",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "approvalState",
+    "target",
+    "contract",
+    "steps",
+    "checkpoint"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "approvalState": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "approved",
+        "deprecated"
+      ]
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "surface",
+        "entrypoint"
+      ],
+      "properties": {
+        "surface": {
+          "type": "string",
+          "enum": [
+            "web",
+            "legacy_web",
+            "desktop"
+          ]
+        },
+        "entrypoint": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "contract": {
+      "type": "object",
+      "required": [
+        "inputs",
+        "outputs"
+      ],
+      "properties": {
+        "inputs": {
+          "type": "object"
+        },
+        "outputs": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "action"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "action": {
+            "type": "object",
+            "required": [
+              "type",
+              "risk"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "fill",
+                  "click",
+                  "wait",
+                  "extract"
+                ]
+              },
+              "risk": {
+                "type": "string",
+                "enum": [
+                  "reversible",
+                  "irreversible"
+                ]
+              },
+              "target": {
+                "type": "object"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "postcondition": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "checkpoint": {
+      "type": "object"
+    },
+    "businessOutcomes": {
+      "type": "array"
+    },
+    "locatorStrategy": {
+      "type": "object"
+    },
+    "provenance": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

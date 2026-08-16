@@ -1,0 +1,16 @@
+{
+  "allowedOrigins": [
+    "http://127.0.0.1:4173"
+  ],
+  "allowedPathPrefixes": [
+    "/legacy/"
+  ],
+  "allowedActions": [
+    "fill",
+    "click",
+    "wait",
+    "extract"
+  ],
+  "riskyActionMode": "require_human",
+  "maximumSteps": 15
+}

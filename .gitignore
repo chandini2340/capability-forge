@@ -1,0 +1,29 @@
+# Installed dependencies
+node_modules/
+
+# Environment variables and secrets
+.env
+.env.*
+*.key
+
+# Temporary execution folders
+evidence/run-*/
+
+# Early screenshots stored directly under evidence
+evidence/*.png
+
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Beginner setup and temporary tutorial scripts
+src/test-browser.js
+src/manual-automation.js
+src/replay-basic.js
+src/test-observe.js
+src/test-planner.js

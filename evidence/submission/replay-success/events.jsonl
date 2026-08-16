@@ -1,0 +1,6 @@
+{"timestamp":"2026-08-15T22:50:17.513Z","runId":"0984afe3-0b76-4216-8266-86bd220034e6","type":"replay_started","data":{"capabilityId":"corepro.member.read_savings_balance","capabilityVersion":"1.0.0","inputs":{"memberId":"[REDACTED]"}}}
+{"timestamp":"2026-08-15T22:50:19.989Z","runId":"0984afe3-0b76-4216-8266-86bd220034e6","type":"step_started","data":{"stepIndex":0,"stepId":"discovered_step_1","actionType":"fill"}}
+{"timestamp":"2026-08-15T22:50:20.162Z","runId":"0984afe3-0b76-4216-8266-86bd220034e6","type":"step_completed","data":{"stepIndex":0,"stepId":"discovered_step_1"}}
+{"timestamp":"2026-08-15T22:50:20.163Z","runId":"0984afe3-0b76-4216-8266-86bd220034e6","type":"step_started","data":{"stepIndex":1,"stepId":"discovered_step_2","actionType":"click"}}
+{"timestamp":"2026-08-15T22:50:20.504Z","runId":"0984afe3-0b76-4216-8266-86bd220034e6","type":"step_completed","data":{"stepIndex":1,"stepId":"discovered_step_2"}}
+{"timestamp":"2026-08-15T22:50:20.523Z","runId":"0984afe3-0b76-4216-8266-86bd220034e6","type":"replay_succeeded","data":{"capabilityId":"corepro.member.read_savings_balance","capabilityVersion":"1.0.0","outputs":{"balance":"[REDACTED]"}}}

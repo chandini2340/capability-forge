@@ -1,0 +1,5 @@
+{"timestamp":"2026-08-15T05:12:26.964Z","runId":"cd495983-3183-43b6-bca7-7adf3270aca3","type":"replay_started","data":{"capabilityId":"corepro.member.read_savings_balance","capabilityVersion":"1.0.0","inputs":{"memberId":"[REDACTED]"}}}
+{"timestamp":"2026-08-15T05:12:33.068Z","runId":"cd495983-3183-43b6-bca7-7adf3270aca3","type":"step_started","data":{"stepIndex":0,"stepId":"enter_member_id","actionType":"fill"}}
+{"timestamp":"2026-08-15T05:12:33.410Z","runId":"cd495983-3183-43b6-bca7-7adf3270aca3","type":"step_completed","data":{"stepIndex":0,"stepId":"enter_member_id"}}
+{"timestamp":"2026-08-15T05:12:33.413Z","runId":"cd495983-3183-43b6-bca7-7adf3270aca3","type":"step_started","data":{"stepIndex":1,"stepId":"submit_lookup","actionType":"click"}}
+{"timestamp":"2026-08-15T05:12:33.911Z","runId":"cd495983-3183-43b6-bca7-7adf3270aca3","type":"business_outcome","data":{"stepIndex":1,"stepId":"submit_lookup","outcome":{"code":"MEMBER_NOT_FOUND","message":"No member exists for the supplied identifier"}}}

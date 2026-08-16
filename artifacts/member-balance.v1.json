@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "1.0",
+  "id": "corepro.member.read_savings_balance",
+  "version": "1.0.0",
+  "title": "Read a member savings balance",
+  "description": "Looks up a member and returns the current savings balance.",
+  "approvalState": "approved",
+  "target": {
+    "surface": "web",
+    "entrypoint": "http://127.0.0.1:4173/legacy/search"
+  },
+  "contract": {
+    "inputs": {
+      "memberId": {
+        "type": "string",
+        "required": true,
+        "pattern": "^[0-9]{5}$",
+        "sensitive": true
+      }
+    },
+    "outputs": {
+      "balance": {
+        "type": "number",
+        "sensitive": true,
+        "target": {
+          "css": "[aria-label='Savings balance']"
+        },
+        "transform": "currency"
+      }
+    }
+  },
+  "steps": [
+    {
+      "id": "enter_member_id",
+      "description": "Enter the supplied member number",
+      "action": {
+        "type": "fill",
+        "risk": "reversible",
+        "target": {
+          "role": "textbox",
+          "name": "Member Number"
+        },
+        "value": "{{memberId}}"
+      },
+      "postcondition": {
+        "kind": "visible",
+        "target": {
+          "role": "button",
+          "name": "Find Member"
+        }
+      }
+    },
+    {
+      "id": "submit_lookup",
+      "description": "Submit the member search",
+      "action": {
+        "type": "click",
+        "risk": "reversible",
+        "target": {
+          "role": "button",
+          "name": "Find Member"
+        }
+      },
+      "postcondition": {
+        "kind": "visible",
+        "target": {
+          "text": "Member loaded"
+        }
+      }
+    }
+  ],
+  "checkpoint": {
+    "kind": "visible",
+    "target": {
+      "text": "Member loaded"
+    }
+  },
+  "businessOutcomes": [
+    {
+      "code": "MEMBER_NOT_FOUND",
+      "message": "No member exists for the supplied identifier",
+      "condition": {
+        "kind": "visible",
+        "target": {
+          "text": "Member not found"
+        }
+      }
+    }
+  ],
+  "locatorStrategy": {
+    "primary": "accessibility role and accessible name",
+    "fallback": "semantic CSS selector",
+    "reason": "Semantic locators are more robust than DOM position-based selectors."
+  }
+}
