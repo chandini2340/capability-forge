@@ -52,7 +52,7 @@ Deterministic replay does not require an API key.
 Clone the repository and enter the project:
 
 ```bash
-git clone YOUR_REPOSITORY_URL
+git clone https://github.com/chandini2340/capability-forge
 cd capability-forge
 ```
 
