@@ -170,7 +170,9 @@ async function executeAction(page, action) {
   if (action.type === "click") {
     const locator = createLocator(page, action.target);
 
-    await locator.click();
+    await locator.click({
+  timeout: action.recovery ? 1000 : 30000,
+});
     return;
   }
 
@@ -183,6 +185,65 @@ async function executeAction(page, action) {
   throw new Error(
     `Unsupported action type: ${action.type}`
   );
+}
+
+// Execute an action with its declared recovery policy.
+async function executeActionWithRecovery(
+  page,
+  action,
+  stepId
+) {
+  const recovery = action.recovery || {
+    maxAttempts: 1,
+    delayMilliseconds: 0,
+  };
+
+  for (
+    let attempt = 1;
+    attempt <= recovery.maxAttempts;
+    attempt++
+  ) {
+    try {
+      await executeAction(page, action);
+
+      if (attempt > 1) {
+        console.log(
+          `Recovered ${stepId} on attempt ${attempt}`
+        );
+
+        logEvent("step_recovered", {
+          stepId: stepId,
+          attempt: attempt,
+        });
+      }
+
+      return;
+    } catch (error) {
+      const finalAttempt =
+        attempt === recovery.maxAttempts;
+
+      if (finalAttempt) {
+        throw error;
+      }
+
+      console.log(
+        `Temporary failure on ${stepId}. Retrying attempt ${attempt + 1} of ${recovery.maxAttempts}.`
+      );
+
+      logEvent("recovery_retry_scheduled", {
+        stepId: stepId,
+        failedAttempt: attempt,
+        nextAttempt: attempt + 1,
+        delayMilliseconds:
+          recovery.delayMilliseconds,
+        errorName: error.name,
+      });
+
+      await page.waitForTimeout(
+        recovery.delayMilliseconds
+      );
+    }
+  }
 }
 
 // Check a condition declared by the artifact.
@@ -360,10 +421,11 @@ console.log(`Run ID: ${runId}`);
   authorizeAction(step.action);
 
   // Execute approved actions automatically.
-  await executeAction(
-    page,
-    step.action
-  );
+  await executeActionWithRecovery(
+  page,
+  step.action,
+  step.id
+);
 } catch (error) {
   // Transfer the same browser session to a human
   // when policy requires manual approval.

@@ -107,7 +107,17 @@ function showSearchPage(response, errorMessage = "") {
           <td></td>
 
           <td>
-            <button type="submit">Find Member</button>
+            <button id="find-member" type="submit" disabled>
+  Find Member
+</button>
+
+<script>
+  setTimeout(() => {
+    document
+      .getElementById("find-member")
+      .removeAttribute("disabled");
+  }, 1800);
+</script>
           </td>
         </tr>
       </table>

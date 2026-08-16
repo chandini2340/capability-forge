@@ -44,6 +44,8 @@ Every action can declare a postcondition. If a postcondition fails, replay first
 
 Recoverable behavior is intentionally conservative. Playwright handles ordinary page slowness through bounded actionability waits. The `wait` action provides an explicit mechanism for known loading states. A production artifact format should add declared retry budgets, known-dialog handlers, session-renewal workflows, and idempotency requirements. A generic retry loop was avoided because retrying financial actions without knowing their side effects can duplicate an irreversible operation.
 
+Recoverable conditions are declared in the capability artifact rather than hidden in the runtime. An action can define a bounded `maxAttempts` and `delayMilliseconds` policy. During the recovery demonstration, the legacy Find Member button remained temporarily unavailable. The first deterministic click attempt timed out, the runner recorded `recovery_retry_scheduled`, waited for the declared delay, retried the same semantic action, and recorded `step_recovered` after the second attempt succeeded. Retries are not enabled automatically for actions that lack an explicit recovery policy.
+
 ## Heterogeneity & multi-tenant
 
 The implementation targets a browser, but the artifact uses semantic actions and targets rather than Playwright-specific objects. The boundary between perception and execution is represented by the observer, target conversion, and action-execution functions.
@@ -96,6 +98,6 @@ Artifact compilation is specialized to the demonstrated member-balance capabilit
 
 Artifacts and evidence use local files. A production system would use signed artifacts, versioned object storage, a capability registry, approval workflows, durable browser workers, encrypted session profiles, queues, and tenant isolation.
 
-Recoverable conditions currently rely on bounded Playwright waiting and explicit wait actions. The next extension would add artifact-declared recovery policies with retry limits, idempotency classification, known-dialog handlers, and session-timeout recovery.
+The recovery implementation is intentionally limited to artifact-declared bounded retries. A production version should additionally support idempotency keys, session renewal, known-dialog handlers, exponential backoff, and recovery policies selected by error type.
 
 Additional high-value next steps would include a second tenant variant, measured replay stability across repeated runs, approval based on a replay threshold, screenshot redaction, and a small agent-facing capability catalog.

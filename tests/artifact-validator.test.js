@@ -76,3 +76,44 @@ test(
     );
   }
 );
+
+test(
+  "validator accepts a bounded recovery policy",
+  () => {
+    const artifactWithRecovery =
+      structuredClone(approvedArtifact);
+
+    artifactWithRecovery.steps[1]
+      .action.recovery = {
+        maxAttempts: 3,
+        delayMilliseconds: 500,
+      };
+
+    assert.doesNotThrow(() => {
+      validateArtifact(artifactWithRecovery);
+    });
+  }
+);
+
+test(
+  "validator rejects an excessive recovery policy",
+  () => {
+    const artifactWithRecovery =
+      structuredClone(approvedArtifact);
+
+    artifactWithRecovery.steps[1]
+      .action.recovery = {
+        maxAttempts: 100,
+        delayMilliseconds: 500,
+      };
+
+    assert.throws(
+      () => {
+        validateArtifact(artifactWithRecovery);
+      },
+      {
+        name: "ArtifactValidationError",
+      }
+    );
+  }
+);

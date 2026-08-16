@@ -60,11 +60,15 @@
       "description": "Submit the entered member number to look up member [REDACTED_MEMBER_ID].",
       "action": {
         "type": "click",
-        "risk": "reversible",
+         "risk": "reversible",
         "target": {
-          "role": "button",
-          "name": "Find Member"
-        }
+            "role": "button",
+             "name": "Find Member"
+        },
+         "recovery": {
+            "maxAttempts": 3,
+            "delayMilliseconds": 500
+          }
       },
       "postcondition": {
         "kind": "visible",

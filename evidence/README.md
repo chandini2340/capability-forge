@@ -51,3 +51,12 @@ The human operated the same live Playwright browser session used by automation.
 ## Data handling
 
 Sensitive input values, balances, secrets, and member identifiers are excluded or replaced with redaction markers. No real credentials, customer data, or personally identifiable information were used.
+
+## Recoverable condition
+
+`submission/recovery/` demonstrates an artifact-declared bounded retry. The legacy UI temporarily disables the Find Member button. The first click attempt times out, replay records `recovery_retry_scheduled`, and the second attempt succeeds with `step_recovered`.
+
+Files:
+
+- `events.jsonl` contains the sanitized retry and recovery events.
+- `success.png` shows the successful final state.

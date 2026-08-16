@@ -29,6 +29,7 @@ The demonstration uses a local legacy-style banking application. An LLM discover
 - Step postconditions and final checkpoints
 - Known business-outcome handling
 - Technical-failure evidence
+- Artifact-declared bounded retries for recoverable UI conditions
 - Domain, route, and action allowlists
 - Risk classification and approval enforcement
 - Same-session human control transfer
@@ -247,6 +248,15 @@ Expected result:
 
 `MEMBER_NOT_FOUND` is a valid business result, not a software crash.
 
+## Recoverable-condition demonstration
+
+The local application temporarily disables the **Find Member** button to simulate a slow legacy UI. The approved discovered capability declares a bounded recovery policy for this action.
+
+Run:
+
+```bash
+node src/replay.js 12345 artifacts/discovered-member-balance.v1.json
+
 ## Human-handoff demonstration
 
 To demonstrate human approval:
@@ -368,6 +378,7 @@ It contains:
 - Genuine LLM discovery
 - Generated capability
 - Deterministic replay
+- Recoverable-condition retry and successful continuation
 - Known business outcome
 - Technical failure
 - Same-session human handoff

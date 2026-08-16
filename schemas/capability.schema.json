@@ -119,8 +119,28 @@
                 "type": "object"
               },
               "value": {
-                "type": "string"
-              }
+  "type": "string"
+},
+"recovery": {
+  "type": "object",
+  "required": [
+    "maxAttempts",
+    "delayMilliseconds"
+  ],
+  "properties": {
+    "maxAttempts": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "delayMilliseconds": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5000
+    }
+  },
+  "additionalProperties": false
+}
             },
             "additionalProperties": false
           },
